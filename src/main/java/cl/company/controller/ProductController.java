@@ -90,7 +90,7 @@ public class ProductController {
             return ResponseEntity.ok(new ApiResponse("Producto eliminado",true));
         } else {
             log.info("Producto no encontrado con id: " + id);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("Libro no encontrado",false));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("Producto no encontrado",false));
         }
     }
 
