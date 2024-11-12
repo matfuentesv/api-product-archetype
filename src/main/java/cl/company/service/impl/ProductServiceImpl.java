@@ -38,8 +38,9 @@ public class ProductServiceImpl implements ProductService {
         if(!existsProductByName(product.getName())){
             Product productToCreate = new Product.Builder()
                                         .name(product.getName())
-                                        .price(product.getPrice())
                                         .description(product.getDescription())
+                                        .price(product.getPrice())
+                                        .stock(product.getStock())
                                         .build();
             Product createdProduct = productRepository.save(productToCreate);
             if(createdProduct == null){
@@ -55,11 +56,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ResponseEntity<Object> updateProduct(Product product) {
-        if(!existsProductById(product.getId())){
+        if(existsProductById(product.getId())){
             Product productToUpdate = new Product.Builder()
                                         .id(product.getId())
                                         .name(product.getName())
                                         .price(product.getPrice())
+                                        .stock(product.getStock())
                                         .description(product.getDescription())
                                         .build();
             return ResponseEntity.ok(productRepository.save(productToUpdate));

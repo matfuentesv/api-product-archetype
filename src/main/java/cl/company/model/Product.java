@@ -27,13 +27,20 @@ public class Product {
     @NotNull(message = "El precio no puede ser nulo")
     private int price;
 
+    @Column(name = "stock")
+    @NotNull(message = "No puede ingresar un stock nulo")
+    private int stock;
+
     @Column(name = "description")
+    @NotBlank(message = "No puede ingresar un description vacio")
+    @NotNull(message = "No puede ingresar un description nulo")
     private String description;
 
     private Product(Builder builder) {
         this.id = builder.id;
         this.name = builder.name;
         this.price = builder.price;
+        this.stock = builder.stock;
         this.description = builder.description;
     }
 
@@ -41,6 +48,7 @@ public class Product {
         private Long id;
         private String name;
         private int price;
+        private int stock;
         private String description;
 
         public Builder id(Long id) {
@@ -58,6 +66,10 @@ public class Product {
             return this;
         }
 
+        public Builder stock(int stock) {
+            this.stock = stock;
+            return this;
+        }
         public Builder description(String description) {
             this.description = description;
             return this;
