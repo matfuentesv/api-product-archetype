@@ -1,8 +1,0 @@
-cl\company\controller\ProductController.class
-cl\company\model\Product.class
-cl\company\exception\ApiResponse.class
-cl\company\config\Config.class
-cl\company\service\impl\ProductServiceImpl.class
-cl\company\service\ProductService.class
-cl\company\App.class
-cl\company\repository\ProductRepository.class
