@@ -1,13 +1,17 @@
-version: '1'
+version: "3.8"
+
 services:
-  microservicio:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
+    image: mi-app-oracle
+    container_name: mi-app-container
     environment:
-      - spring.datasource.url=jdbc:oracle:thin:@nkytd6df15m2nhao_tp?TNS_ADMIN=/app/oracle_wallet/
-      - spring.datasource.username=Admin
-      - spring.datasource.password=OracleCloud123
-    restart: always
+      SPRING_DATASOURCE_USERNAME: Admin
+      SPRING_DATASOURCE_PASSWORD: OracleCloud123
+    ports:
+      - "8080:8080" # Map container port 8080 to host port 8080
+    volumes:
+      - ./Wallet_NKYTD6DF15M2NHAO:/app/wallet
+    restart: unless-stopped
