@@ -73,9 +73,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/deleteProduct/{id}")
-    public ResponseEntity<Object> deleteProduct(@RequestHeader("username")String username,
-                                                @RequestHeader("password")String password,
-                                                @PathVariable Long id) {
+    public ResponseEntity<Object> deleteProduct(@PathVariable Long id) {
 
         if (StringUtils.containsWhitespace(String.valueOf(id))|| id == null) {
             log.info("El id no se ingreso");
