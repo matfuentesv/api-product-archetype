@@ -3,6 +3,7 @@ package cl.company.service.impl;
 
 import cl.company.exception.ApiResponse;
 import cl.company.model.Product;
+import cl.company.model.ProductResponse;
 import cl.company.repository.ProductRepository;
 import cl.company.service.ProductService;
 import lombok.extern.java.Log;
@@ -11,8 +12,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Service
 @Log
@@ -22,8 +26,25 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     @Override
-    public List<Product> findAllProduct() {
-        return productRepository.findAll();
+    public ProductResponse findAllProduct() {
+        final Predicate<Product>notebookPredicate = x->x.getCategory().equalsIgnoreCase("notebooks");
+        final Predicate<Product>cellPhonesPredicate = x->x.getCategory().equalsIgnoreCase("cellPhones");
+        final Predicate<Product>airConditioningPredicate = x->x.getCategory().equalsIgnoreCase("airConditioning");
+
+        final Predicate<Product>outstandingPredicate = x->x.getCategory().equalsIgnoreCase("outstanding");
+        final List<Product>productList = productRepository.findAll();
+        final List<Product>notebookList = productList.stream().filter(notebookPredicate).collect(Collectors.toList());
+        final List<Product>cellPhonesList = productList.stream().filter(cellPhonesPredicate).collect(Collectors.toList());
+        final List<Product>airConditioningList = productList.stream().filter(airConditioningPredicate).collect(Collectors.toList());
+
+        final List<Product>outstandingList = productList.stream().filter(outstandingPredicate).collect(Collectors.toList());
+
+       return new ProductResponse()
+               .setNotebooks(notebookList)
+               .setCellPhones(cellPhonesList)
+               .setAirConditioning(airConditioningList)
+               .setCoffeeMakers(cellPhonesList)
+               .setOutstanding(outstandingList);
     }
 
     @Override
@@ -38,9 +59,15 @@ public class ProductServiceImpl implements ProductService {
         if(!existsProductByName(product.getName())){
             Product productToCreate = new Product.Builder()
                                         .name(product.getName())
-                                        .description(product.getDescription())
                                         .price(product.getPrice())
-                                        .stock(product.getStock())
+                                        .description(product.getDescription())
+                                        .discount(product.getDiscount())
+                                        .image(product.getImage())
+                                        .category(product.getCategory())
+                                        .originalPrice(product.getOriginalPrice())
+                                        .rating(product.getRating())
+                                        .reviews(product.getReviews())
+                                        .quantity(product.getQuantity())
                                         .build();
             Product createdProduct = productRepository.save(productToCreate);
             if(createdProduct == null){
@@ -61,8 +88,14 @@ public class ProductServiceImpl implements ProductService {
                                         .id(product.getId())
                                         .name(product.getName())
                                         .price(product.getPrice())
-                                        .stock(product.getStock())
                                         .description(product.getDescription())
+                                        .discount(product.getDiscount())
+                                        .image(product.getImage())
+                                        .category(product.getCategory())
+                                        .originalPrice(product.getOriginalPrice())
+                                        .rating(product.getRating())
+                                        .reviews(product.getReviews())
+                                        .quantity(product.getQuantity())
                                         .build();
             return ResponseEntity.ok(productRepository.save(productToUpdate));
         }else {

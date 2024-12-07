@@ -3,13 +3,13 @@ package cl.company.service;
 
 
 import cl.company.model.Product;
+import cl.company.model.ProductResponse;
 import org.springframework.http.ResponseEntity;
 
-import java.util.List;
 
 public interface ProductService {
 
-    List<Product> findAllProduct();
+    ProductResponse findAllProduct();
     Product findProduct(Long id);
     ResponseEntity<Object> createProduct(Product product);
     ResponseEntity<Object> updateProduct(Product product);
