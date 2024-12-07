@@ -30,12 +30,14 @@ public class ProductServiceImpl implements ProductService {
         final Predicate<Product>notebookPredicate = x->x.getCategory().equalsIgnoreCase("notebooks");
         final Predicate<Product>cellPhonesPredicate = x->x.getCategory().equalsIgnoreCase("cellPhones");
         final Predicate<Product>airConditioningPredicate = x->x.getCategory().equalsIgnoreCase("airConditioning");
-
+        final Predicate<Product>coffeePredicate = x->x.getCategory().equalsIgnoreCase("coffeeMakers");
         final Predicate<Product>outstandingPredicate = x->x.getCategory().equalsIgnoreCase("outstanding");
+
         final List<Product>productList = productRepository.findAll();
         final List<Product>notebookList = productList.stream().filter(notebookPredicate).collect(Collectors.toList());
         final List<Product>cellPhonesList = productList.stream().filter(cellPhonesPredicate).collect(Collectors.toList());
         final List<Product>airConditioningList = productList.stream().filter(airConditioningPredicate).collect(Collectors.toList());
+        final List<Product>coffeeList = productList.stream().filter(coffeePredicate).collect(Collectors.toList());
 
         final List<Product>outstandingList = productList.stream().filter(outstandingPredicate).collect(Collectors.toList());
 
@@ -43,7 +45,7 @@ public class ProductServiceImpl implements ProductService {
                .setNotebooks(notebookList)
                .setCellPhones(cellPhonesList)
                .setAirConditioning(airConditioningList)
-               .setCoffeeMakers(cellPhonesList)
+               .setCoffeeMakers(coffeeList)
                .setOutstanding(outstandingList);
     }
 
