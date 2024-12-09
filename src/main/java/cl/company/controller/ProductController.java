@@ -42,35 +42,14 @@ public class ProductController {
     }
 
     @PostMapping("/createProduct")
-    public ResponseEntity<Object> createProduct(@Valid @RequestBody Product product,
-                                                BindingResult bindingResult) throws MethodArgumentNotValidException {
+    public Product createProduct(@Valid @RequestBody Product product)  {
 
-        if (product == null) {
-            log.info("Algunos de los parámetros no se ingresaron");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse("Algunos de los parámetros no se ingresaron",false));
-        }
-
-        if (bindingResult.hasErrors()) {
-            throw new IllegalArgumentException("Error en los argumentos del método.");
-        }
-
-        return ResponseEntity.ok(productService.createProduct(product));
+        return productService.createProduct(product);
     }
 
     @PutMapping("/updateProduct")
-    public ResponseEntity<Object> updateProduct(@Valid @RequestBody Product product,
-                                                BindingResult bindingResult) throws MethodArgumentNotValidException {
-
-        if (product == null) {
-            log.info("Algunos de los parámetros no se ingresaron");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse("Algunos de los parámetros no se ingresaron",false));
-        }
-
-        if (bindingResult.hasErrors()) {
-            throw new IllegalArgumentException("Error en los argumentos del método.");
-        }
-
-        return ResponseEntity.ok(productService.updateProduct(product));
+    public Product updateProduct(@Valid @RequestBody Product product)  {
+        return productService.updateProduct(product);
     }
 
     @DeleteMapping("/deleteProduct/{id}")

@@ -56,7 +56,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ResponseEntity<Object> createProduct(Product product) {
+    public Product createProduct(Product product) {
 
         if(!existsProductByName(product.getName())){
             Product productToCreate = new Product.Builder()
@@ -71,20 +71,15 @@ public class ProductServiceImpl implements ProductService {
                                         .reviews(product.getReviews())
                                         .quantity(product.getQuantity())
                                         .build();
-            Product createdProduct = productRepository.save(productToCreate);
-            if(createdProduct == null){
-                log.info("Algunos de los parámetros no se ingresaron");
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse("Algunos de los parámetros no se ingresaron",false));
-            }else {
-                return ResponseEntity.ok(product);
-            }
+            return productRepository.save(productToCreate);
+
         }else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse("No se puedo actualizar el product,no existe",false));
+            return null;
         }
     }
 
     @Override
-    public ResponseEntity<Object> updateProduct(Product product) {
+    public Product updateProduct(Product product) {
         if(existsProductById(product.getId())){
             Product productToUpdate = new Product.Builder()
                                         .id(product.getId())
@@ -99,10 +94,10 @@ public class ProductServiceImpl implements ProductService {
                                         .reviews(product.getReviews())
                                         .quantity(product.getQuantity())
                                         .build();
-            return ResponseEntity.ok(productRepository.save(productToUpdate));
+            return productRepository.save(productToUpdate);
         }else {
             log.info("No se puedo actualizar el product,no existe");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse("No se puedo actualizar el product,no existe",false));
+            return null;
         }
     }
 

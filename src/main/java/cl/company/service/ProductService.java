@@ -11,8 +11,8 @@ public interface ProductService {
 
     ProductResponse findAllProduct();
     Product findProduct(Long id);
-    ResponseEntity<Object> createProduct(Product product);
-    ResponseEntity<Object> updateProduct(Product product);
+    Product createProduct(Product product);
+    Product updateProduct(Product product);
     ResponseEntity<Object> deleteProduct(Long id);
     boolean existsProductByName(String username);
     boolean existsProductById(Long id);
