@@ -149,5 +149,20 @@ public class Product {
         }
     }
 
-
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", discount=" + discount +
+                ", description='" + description + '\'' +
+                ", image='" + image + '\'' +
+                ", category='" + category + '\'' +
+                ", originalPrice=" + originalPrice +
+                ", rating=" + rating +
+                ", reviews=" + reviews +
+                ", quantity=" + quantity +
+                '}';
+    }
 }

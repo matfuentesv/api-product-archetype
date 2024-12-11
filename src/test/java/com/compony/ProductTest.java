@@ -84,5 +84,39 @@ class ProductTest {
         assertEquals(product1.hashCode(), product2.hashCode());
     }
 
+    @Test
+    void testToString() {
+        // Arrange
+        Product product = new Product();
+        product.setId(1L);
+        product.setName("Laptop");
+        product.setPrice(1000.00);
+        product.setDiscount(10.0);
+        product.setDescription("High-end gaming laptop");
+        product.setImage("laptop.jpg");
+        product.setCategory("Electronics");
+        product.setOriginalPrice(1100.00);
+        product.setRating(5);
+        product.setReviews(150);
+        product.setQuantity(10);
+
+        // Act
+        String result = product.toString();
+
+        // Assert
+        assertTrue(result.contains("id=1"));
+        assertTrue(result.contains("name='Laptop'"));
+        assertTrue(result.contains("price=1000.0"));
+        assertTrue(result.contains("discount=10.0"));
+        assertTrue(result.contains("description='High-end gaming laptop'"));
+        assertTrue(result.contains("image='laptop.jpg'"));
+        assertTrue(result.contains("category='Electronics'"));
+        assertTrue(result.contains("originalPrice=1100.0"));
+        assertTrue(result.contains("rating=5"));
+        assertTrue(result.contains("reviews=150"));
+        assertTrue(result.contains("quantity=10"));
+    }
+
+
 
 }
